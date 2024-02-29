@@ -1,6 +1,6 @@
 # CMPS 2200  Recitation 04
 
-**Name (Team Member 1):**_________________________  
+**Name (Team Member 1):** Nicolas Labarca 
 **Name (Team Member 2):**_________________________
 
 
@@ -36,7 +36,7 @@ To use this function to count words, you'll need to implement your own `map_f` a
 
 4. Assume that a word `w` appears `n` times. What is the **work** and **span** of `word_count_reduce` for this word, assuming a parallel implementation of the `reduce` function?
 
-**Enter answer here**
+We implemented the word_count_map function, which takes a document and returns a list of tuples containing each word and a count of 1, indicating that the word appears once in the document. We also implemented the word_count_reduce function, which takes a word and a list of counts, and returns a tuple of the word and the sum of the counts. The run_map_reduce function was provided and uses the word_count_map and word_count_reduce functions to perform the map-reduce operation on the list of documents. The result is a list of tuples, each containing a word and its frequency in the documents.
 
 
 5. Why are we going through all this trouble? Couldn't I just use this function to count words?
@@ -52,7 +52,7 @@ for doc in docs:
 
 What is the problem that prevents us from easily parallelizing this solution?
 
-**Enter answer here**
+The approach in the given code is not easily parallelizable because it requires updating a shared dictionary counts from multiple threads, which can cause race conditions and make the results unreliable. The map-reduce approach, on the other hand, processes each document in parallel and then reduces the intermediate results in a separate step, which is easier to parallelize
 
 
 ## Part 2: Sentiment analysis

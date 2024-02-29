@@ -9,7 +9,7 @@ def run_map_reduce(map_f, reduce_f, docs):
     # done. do not change me.
     """    
     The main map reduce logic.
-    
+
     Params:
       map_f......the mapping function
       reduce_f...the reduce function
@@ -31,14 +31,18 @@ def word_count_map(doc):
       doc....a string to be split into tokens. split on whitespace.
     Returns:
       a list of tuples of form (token, 1), where token is a whitespace delimited element of this string.
-      
+
     E.g.
     >>> word_count_map('i am sam i am')
     [('i', 1), ('am', 1), ('sam', 1), ('i', 1), ('am', 1)]
     """
     ###TODO
-    
-    
+    list = []
+    for word in doc.split():
+        list.append((word, 1))
+    return list
+
+
 
 
 def word_count_reduce(group):
@@ -50,12 +54,13 @@ def word_count_reduce(group):
     E.g.
     >>> word_count_reduce(['i', [1,1]])
     ('i', 2)
-    
+
     NOTE: you should use call the `reduce` function here.
     """
     ###TODO
-    
-    
+    return ((group[0],len(group[1])))
+
+
 
 
 def iterate(f, x, a):
@@ -70,7 +75,7 @@ def iterate(f, x, a):
         return x
     else:
         return iterate(f, f(x, a[0]), a[1:])
-    
+
 def flatten(sequences):
     # done. do not change me.
     return iterate(plus, [], sequences)
@@ -102,10 +107,10 @@ def reduce(f, id_, a):
     else:
         return f(reduce(f, id_, a[:len(a)//2]),
                  reduce(f, id_, a[len(a)//2:]))
-    
-    
-    
-    
+
+
+
+
 ### PART TWO ###
 
 def sentiment_map(doc,
@@ -123,4 +128,12 @@ def sentiment_map(doc,
     [('negative', 1), ('negative', 1)]
     """
     ###TODO
+    list = []
+    b = run_map_reduce(word_count_map,word_count_reduce,doc.split())
+    for key, value in b:
+        if key in pos_terms:
+            list.append(("positive",value))
+        elif key in neg_terms:
+            list.append(("negative",value))
+    return list
 
